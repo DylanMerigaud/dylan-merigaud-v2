@@ -24,7 +24,7 @@ const styles = {
     height: '100%',
     backgroundColor: theme.palette.background.default,
     display: 'grid',
-    gridTemplateRows: 'auto 1fr auto',
+    gridTemplateRows: '1fr 5fr 1fr',
     alignItems: 'center',
   }
 }
