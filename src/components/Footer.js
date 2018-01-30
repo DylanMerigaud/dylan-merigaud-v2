@@ -16,7 +16,7 @@ class Footer extends Component {
     return (
       <footer style={styles.root}>
       <Typography style={styles.madeWithLove} type="body1">
-          Made with ❤️️ by Dylan Merigaud
+          Made with <span role='img' aria-label='♥'>❤️️</span> by Dylan Merigaud
         </Typography>
       </footer>
     );
