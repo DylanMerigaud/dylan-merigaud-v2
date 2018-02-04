@@ -16,16 +16,16 @@ const styles = {
 
 class RootSlave extends Component {
   render() {
-    const { classes, SelectedSection, theme } = this.props
+    const { classes, SelectedSection, theme, SelectedSectionIndexX } = this.props
     const inlineStyles = {
       root: {
         backgroundColor: theme.palette.background.default,
       },
     }
     return (
-      <div style={inlineStyles.root} className={classes.root}>
+      <div style={inlineStyles.root} className={classes.root + ' withThemeTransition'}>
         <Header switchTheme={this.props.switchTheme}/>
-        <SelectedSection/>
+        <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX}/>
         <Footer/>
       </div>
     )

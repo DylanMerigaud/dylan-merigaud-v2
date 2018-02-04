@@ -37,6 +37,8 @@ class Root extends Component {
       sectionSwitchY,
       sectionSwitchX,
      } = this.props
+    const { initSectionsX } = this.props
+    initSectionsX(sections.length)
     this.mouseWheelHandlerY = (e) => mouseWheelHandlerY(e, sectionSwitchY)
     this.buttonPressHandlerY = (e) => buttonPressHandlerY(e, sectionSwitchY)
     this.mouseWheelHandlerX = (e) => mouseWheelHandlerX(e, sectionSwitchX)
@@ -44,8 +46,6 @@ class Root extends Component {
   }
 
   componentDidMount() {
-    const { initSectionsX } = this.props
-    initSectionsX(sections.length)
     window.addEventListener("mousewheel", this.mouseWheelHandlerY)
     window.addEventListener("keydown", this.buttonPressHandlerY)
     window.addEventListener("mousewheel", this.mouseWheelHandlerX)
@@ -63,13 +63,16 @@ class Root extends Component {
     const {
       switchTheme,
       sectionIndexY,
+      sectionIndexX,
       themeType,
      } = this.props
     const SelectedSection = sections[sectionIndexY].component
     const theme = themeType === 'dark' ? themeDark : themeLight
+    const SelectedSectionIndexX = sectionIndexX[sectionIndexY]
+    console.log(sectionIndexX)
     return (
       <MuiThemeProvider theme={theme}>
-        <RootSlave switchTheme={switchTheme} SelectedSection={SelectedSection} />
+        <RootSlave switchTheme={switchTheme} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} />
       </MuiThemeProvider>
     )
   }
@@ -79,6 +82,7 @@ const mapStateToProps = state => {
   return {
     themeType: state.themeType,
     sectionIndexY: state.sectionIndexY,
+    sectionIndexX: state.sectionIndexX,
   }
 }
 

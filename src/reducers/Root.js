@@ -27,8 +27,8 @@ const Root = (state = initialState, action) => {
       )
     case SECTION_SWITCH_X:
     {
-      const newSectionIndexX = state.sectionIndexX
-      newSectionIndexX[state.sectionIndexY] = sectionGetNewValue(action.up, state.sectionIndexX, sections[state.sectionIndexY].length)
+      const newSectionIndexX = state.sectionIndexX.slice(0)
+      newSectionIndexX[state.sectionIndexY] = sectionGetNewValue(action.up, newSectionIndexX[state.sectionIndexY], sections[state.sectionIndexY].length)
       return Object.assign(
         {},
         state,

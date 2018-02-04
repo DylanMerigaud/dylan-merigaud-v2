@@ -3,7 +3,7 @@ import WebsiteV1 from 'components/presentational/sections/WebsiteV1'
 import WebsiteV2 from 'components/presentational/sections/WebsiteV2'
 
 const sections = [
-  { component: Blog, length: 1 },
+  { component: Blog, length: 2 },
   { component: WebsiteV1, length: 1 },
   { component: WebsiteV2, length: 1 },
 ]
