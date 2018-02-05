@@ -9,9 +9,14 @@ const styles = {
   root: {
     height: '100%',
     display: 'grid',
-    gridTemplateRows: '1fr 5fr 1fr',
+    gridTemplateRows: '1fr 6fr 1fr',
     alignItems: 'center',
   },
+  main : {
+    height: '100%',
+    display: 'grid',
+    alignItems: 'center',
+  }
 }
 
 class RootSlave extends Component {
@@ -29,9 +34,11 @@ class RootSlave extends Component {
       },
     }
     return (
-      <div style={inlineStyles.root} className={classes.root + ' withThemeTransition'}>
+      <div id='app' style={inlineStyles.root} className={classes.root + ' withThemeTransition'}>
         <Header switchTheme={switchTheme} sectionReset={sectionReset} />
-        <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX} />
+        <main className={classes.main}>
+          <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX} />
+        </main>
         <Footer />
       </div>
     )

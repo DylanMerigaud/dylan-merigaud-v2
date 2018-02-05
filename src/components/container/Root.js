@@ -5,6 +5,9 @@ import {
   buttonPressHandlerY,
   mouseWheelHandlerX,
   buttonPressHandlerX,
+  touchStartHandler,
+  touchMoveHandler,
+  touchEndHandler,
 } from 'helpers/sectionHelper'
 import { connect } from 'react-redux'
 import {
@@ -39,27 +42,43 @@ class Root extends Component {
       sectionSwitchX,
       sectionSetFromPathname,
      } = this.props
+
     this.mouseWheelHandlerY = (e) => mouseWheelHandlerY(e, sectionSwitchY)
     this.buttonPressHandlerY = (e) => buttonPressHandlerY(e, sectionSwitchY)
     this.mouseWheelHandlerX = (e) => mouseWheelHandlerX(e, sectionSwitchX)
     this.buttonPressHandlerX = (e) => buttonPressHandlerX(e, sectionSwitchX)
+
+    this.touchStartHandler = (e) => touchStartHandler(e)
+    this.touchMoveHandler = (e) => touchMoveHandler(e)
+    this.touchEndHandler = (e) => touchEndHandler(e, sectionSwitchY, sectionSwitchX)
+
     sectionSetFromPathname(window.location.pathname)
-    console.log(window.location.pathname)
-    console.log(window.location.pathname.split('/').filter(elem => elem !== ''))
   }
 
   componentDidMount() {
+    const backgroundElement = document.getElementsByTagName('main')[0]
+
     window.addEventListener("wheel", this.mouseWheelHandlerY)
     window.addEventListener("keydown", this.buttonPressHandlerY)
     window.addEventListener("wheel", this.mouseWheelHandlerX)
     window.addEventListener("keydown", this.buttonPressHandlerX)
+
+    backgroundElement.addEventListener("touchstart", this.touchStartHandler)
+    backgroundElement.addEventListener("touchmove", this.touchMoveHandler)
+    window.addEventListener("touchend", this.touchEndHandler)
   }
 
   componentWillUnmount() {
+    const backgroundElement = document.getElementsByTagName('main')[0]
+
     window.removeEventListener("wheel", this.mouseWheelHandlerY)
     window.removeEventListener("keydown", this.buttonPressHandlerY)
     window.removeEventListener("wheel", this.mouseWheelHandlerX)
-    window.removeEventListener("keydown", this.buttonPressHandlerX)
+    window.removeEventListener("touchend", this.buttonPressHandlerX)
+
+    backgroundElement.addEventListener("touchstart", this.touchStartHandler)
+    backgroundElement.addEventListener("touchmove", this.touchMoveHandler)
+    window.addEventListener("touchend", this.touchEndHandler)
   }
 
   render() {
