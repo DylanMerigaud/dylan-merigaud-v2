@@ -1,3 +1,5 @@
+import sections from 'configs/sections'
+
 const mouseWheelHandlerX = (e, callback) => {
   if (e.deltaX < 0) callback(false)
   else if (e.deltaX > 0) callback(true)
@@ -18,11 +20,16 @@ const buttonPressHandlerY = (e, callback) => {
   else if (e.code === 'ArrowDown') callback(true)
 }
 
-const sectionGetNewValue = (up, sectionIndex, length) => {
+const sectionGetNewValue = (up, sectionIndex, length, loop = true) => {
   let newSectionIndex = sectionIndex + (up ? 1 : -1)
-  if (newSectionIndex < 0) newSectionIndex = length - 1
-  if (newSectionIndex >= length) newSectionIndex = 0
+  if (newSectionIndex < 0) newSectionIndex = loop ? length - 1 : 0
+  if (newSectionIndex >= length) newSectionIndex = loop ? 0 : length - 1
   return newSectionIndex
+}
+
+const setNewLocationPathname = (sectionIndexY, sectionIndexX) => {
+  const newLocationPathname = '/' + sections[sectionIndexY].path + '/' + sectionIndexX.toString()
+  window.history.replaceState(null, null, newLocationPathname)
 }
 
 export {
@@ -31,4 +38,5 @@ export {
   buttonPressHandlerX,
   buttonPressHandlerY,
   sectionGetNewValue,
+  setNewLocationPathname,
 }

@@ -5,15 +5,25 @@ import Section from 'components/presentational/Section'
 class Blog extends Component {
   render() {
     const { SelectedSectionIndexX } = this.props
-    console.log(SelectedSectionIndexX)
-    if (SelectedSectionIndexX === 1)
-    return (
-      <div/>
-    )
-    else
-    return (
-      <Section type={'Personal project'} title={'Blog'} description={'Yup it\'s a blog'}/>
-    )
+    switch (SelectedSectionIndexX) {
+      case 1:
+        return (
+          <div>
+            1
+          </div>
+        )
+      case 2:
+        return (
+          <div>
+            2
+          </div>
+        )
+      case 0:
+      default:
+        return (
+          <Section type={'Personal project'} title={'Blog'} description={'Yup it\'s a blog'} />
+        )
+    }
   }
 }
 

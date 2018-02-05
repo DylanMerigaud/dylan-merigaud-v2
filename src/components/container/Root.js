@@ -10,8 +10,9 @@ import { connect } from 'react-redux'
 import {
   sectionSwitchY,
   sectionSwitchX,
+  sectionSetFromPathname,
+  sectionReset,
   switchTheme,
-  initSectionsX,
 } from 'actions/Root'
 
 import sections from 'configs/sections'
@@ -36,13 +37,15 @@ class Root extends Component {
     const {
       sectionSwitchY,
       sectionSwitchX,
+      sectionSetFromPathname,
      } = this.props
-    const { initSectionsX } = this.props
-    initSectionsX(sections.length)
     this.mouseWheelHandlerY = (e) => mouseWheelHandlerY(e, sectionSwitchY)
     this.buttonPressHandlerY = (e) => buttonPressHandlerY(e, sectionSwitchY)
     this.mouseWheelHandlerX = (e) => mouseWheelHandlerX(e, sectionSwitchX)
     this.buttonPressHandlerX = (e) => buttonPressHandlerX(e, sectionSwitchX)
+    sectionSetFromPathname(window.location.pathname)
+    console.log(window.location.pathname)
+    console.log(window.location.pathname.split('/').filter(elem => elem !== ''))
   }
 
   componentDidMount() {
@@ -61,18 +64,18 @@ class Root extends Component {
 
   render() {
     const {
-      switchTheme,
       sectionIndexY,
       sectionIndexX,
+      sectionReset,
+      switchTheme,
       themeType,
      } = this.props
     const SelectedSection = sections[sectionIndexY].component
     const theme = themeType === 'dark' ? themeDark : themeLight
     const SelectedSectionIndexX = sectionIndexX[sectionIndexY]
-    console.log(sectionIndexX)
     return (
       <MuiThemeProvider theme={theme}>
-        <RootSlave switchTheme={switchTheme} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} />
+        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} />
       </MuiThemeProvider>
     )
   }
@@ -92,10 +95,12 @@ const mapDispatchToProps = dispatch => {
       dispatch(sectionSwitchY(up)),
     sectionSwitchX: (up) =>
       dispatch(sectionSwitchX(up)),
+    sectionSetFromPathname: (pathname) =>
+      dispatch(sectionSetFromPathname(pathname)),
     switchTheme: () =>
       dispatch(switchTheme()),
-    initSectionsX: (numberOfSectionsY) =>
-      dispatch(initSectionsX(numberOfSectionsY)),
+    sectionReset: () =>
+      dispatch(sectionReset()),
   }
 }
 
