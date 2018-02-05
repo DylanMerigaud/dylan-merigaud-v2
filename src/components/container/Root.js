@@ -49,16 +49,16 @@ class Root extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("mousewheel", this.mouseWheelHandlerY)
+    window.addEventListener("wheel", this.mouseWheelHandlerY)
     window.addEventListener("keydown", this.buttonPressHandlerY)
-    window.addEventListener("mousewheel", this.mouseWheelHandlerX)
+    window.addEventListener("wheel", this.mouseWheelHandlerX)
     window.addEventListener("keydown", this.buttonPressHandlerX)
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mousewheel", this.mouseWheelHandlerY)
+    window.removeEventListener("wheel", this.mouseWheelHandlerY)
     window.removeEventListener("keydown", this.buttonPressHandlerY)
-    window.removeEventListener("mousewheel", this.mouseWheelHandlerX)
+    window.removeEventListener("wheel", this.mouseWheelHandlerX)
     window.removeEventListener("keydown", this.buttonPressHandlerX)
   }
 
