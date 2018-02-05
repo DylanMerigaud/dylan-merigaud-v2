@@ -58,8 +58,10 @@ const sectionGetNewValue = (up, sectionIndex, length, loop = true) => {
 }
 
 const setNewLocationPathname = (sectionIndexY, sectionIndexX) => {
+  if (sectionIndexY === 0 && sectionIndexX === 0)
+  return window.history.replaceState(null, null, '/')
   const newLocationPathname = '/' + sections[sectionIndexY].path + '/' + sectionIndexX.toString()
-  window.history.replaceState(null, null, newLocationPathname)
+  return window.history.replaceState(null, null, newLocationPathname)
 }
 
 export {

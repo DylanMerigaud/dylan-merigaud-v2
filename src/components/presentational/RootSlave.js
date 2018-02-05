@@ -27,7 +27,8 @@ class RootSlave extends Component {
       theme,
       SelectedSectionIndexX,
       switchTheme,
-      sectionReset } = this.props
+      sectionReset,
+     } = this.props
     const inlineStyles = {
       root: {
         backgroundColor: theme.palette.background.default,
@@ -35,9 +36,9 @@ class RootSlave extends Component {
     }
     return (
       <div id='app' style={inlineStyles.root} className={classes.root + ' withThemeTransition'}>
-        <Header switchTheme={switchTheme} sectionReset={sectionReset} />
+        <Header switchTheme={switchTheme} sectionReset={sectionReset}/>
         <main className={classes.main}>
-          <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX} />
+          <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX}/>
         </main>
         <Footer />
       </div>

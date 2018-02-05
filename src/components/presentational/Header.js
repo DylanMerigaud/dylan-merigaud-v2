@@ -47,7 +47,7 @@ class Header extends Component {
     return (
       <header className={classes.root}>
         <div className={classes.container}>
-          <Button className={classes.homeButton} onClick={()=>sectionReset()}>
+          <Button className={classes.homeButton} onClick={()=>{sectionReset()}}>
             Dylan Merigaud
           </Button>
           <div className={classes.contactButtons}>

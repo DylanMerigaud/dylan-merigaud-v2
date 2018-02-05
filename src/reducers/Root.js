@@ -22,15 +22,15 @@ const initialState = {
 const Root = (state = initialState, action) => {
   switch (action.type) {
     case SECTION_SWITCH_Y:
-    {
-      const newSectionIndexY = sectionGetNewValue(action.up, state.sectionIndexY, sectionsYLength, true)
-      setNewLocationPathname(newSectionIndexY, state.sectionIndexX[newSectionIndexY])
-      return Object.assign(
-        {},
-        state,
-        { sectionIndexY: newSectionIndexY },
-      )
-    }
+      {
+        const newSectionIndexY = sectionGetNewValue(action.up, state.sectionIndexY, sectionsYLength, true)
+        setNewLocationPathname(newSectionIndexY, state.sectionIndexX[newSectionIndexY])
+        return Object.assign(
+          {},
+          state,
+          { sectionIndexY: newSectionIndexY },
+        )
+      }
     case SECTION_SWITCH_X:
       {
         const newSectionIndexX = state.sectionIndexX.slice(0)
@@ -54,7 +54,7 @@ const Root = (state = initialState, action) => {
             }
           if (sectionIndexY !== undefined) {
             const parsedSecondePathname = parseInt(pathnameArray[1], 10)
-            if (isNaN(parsedSecondePathname) && parsedSecondePathname >= 0 && parsedSecondePathname < sections[sectionIndexY].length) {
+            if (!isNaN(parsedSecondePathname) && parsedSecondePathname >= 0 && parsedSecondePathname < sections[sectionIndexY].length) {
               const newSectionIndexX = state.sectionIndexX.slice(0)
               newSectionIndexX[sectionIndexY] = parsedSecondePathname
               return Object.assign(
@@ -74,6 +74,7 @@ const Root = (state = initialState, action) => {
         )
       }
     case SECTION_RESET:
+      setNewLocationPathname(initialState.sectionIndexY, initialState.sectionIndexX[initialState.sectionIndexY])
       return Object.assign(
         {},
         state,
