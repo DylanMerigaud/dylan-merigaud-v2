@@ -45,7 +45,7 @@ const Root = (state = initialState, action) => {
     case SECTION_SET_FROM_PATHNAME:
       {
         const pathnameArray = action.pathname.split('/').filter(elem => elem !== '')
-        if (pathnameArray.length === 2) {
+        if (pathnameArray.length === 1 || pathnameArray.length === 2) {
           let sectionIndexY;
           for (var i = 0; i < sectionsYLength; i++)
             if (sections[i].path === pathnameArray[0]) {
@@ -53,6 +53,14 @@ const Root = (state = initialState, action) => {
               break
             }
           if (sectionIndexY !== undefined) {
+            if (pathnameArray.length === 1)
+            return Object.assign(
+              {},
+              state,
+              {
+                sectionIndexY,
+              },
+            )
             const parsedSecondePathname = parseInt(pathnameArray[1], 10)
             if (!isNaN(parsedSecondePathname) && parsedSecondePathname >= 0 && parsedSecondePathname < sections[sectionIndexY].length) {
               const newSectionIndexX = state.sectionIndexX.slice(0)
@@ -68,6 +76,7 @@ const Root = (state = initialState, action) => {
             }
           }
         }
+        setNewLocationPathname(state.sectionIndexY, state.sectionIndexX[state.sectionIndexY])
         return Object.assign(
           {},
           state,

@@ -64,7 +64,7 @@ class Root extends Component {
     window.addEventListener("keydown", this.buttonPressHandlerX)
 
     backgroundElement.addEventListener("touchstart", this.touchStartHandler)
-    backgroundElement.addEventListener("touchmove", this.touchMoveHandler)
+    window.addEventListener("touchmove", this.touchMoveHandler)
     window.addEventListener("touchend", this.touchEndHandler)
   }
 

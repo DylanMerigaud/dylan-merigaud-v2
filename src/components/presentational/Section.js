@@ -16,13 +16,13 @@ class Blog extends Component {
     const { type, title, description, classes } = this.props
     return (
       <div className={classes.root}>
-        <Typography type="title">
+        <Typography variant="title">
           {type}
         </Typography>
-        <Typography type="display3" gutterBottom>
+        <Typography variant="display3" gutterBottom>
           {title}
         </Typography>
-        <Typography type="body1" gutterBottom>
+        <Typography variant="body1" gutterBottom>
           {description}
         </Typography>
       </div>

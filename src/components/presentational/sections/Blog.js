@@ -21,7 +21,7 @@ class Blog extends Component {
       case 0:
       default:
         return (
-          <Section type={'Personal project'} title={'Blog'} description={'Yup it\'s a blog'} />
+          <Section type={'Personal project'} title={'Blog'} description={'Yup it\'s a Blog'} />
         )
     }
   }

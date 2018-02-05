@@ -48,6 +48,8 @@ const touchEndHandler = (e, verticalCallback, horizontalCallback) => {
   }
   this.touchStartX = undefined
   this.touchStartY = undefined
+  this.touchLastX = undefined
+  this.touchLastY = undefined
 }
 
 const sectionGetNewValue = (up, sectionIndex, length, loop = true) => {
@@ -60,8 +62,9 @@ const sectionGetNewValue = (up, sectionIndex, length, loop = true) => {
 const setNewLocationPathname = (sectionIndexY, sectionIndexX) => {
   if (sectionIndexY === 0 && sectionIndexX === 0)
   return window.history.replaceState(null, null, '/')
-  const newLocationPathname = '/' + sections[sectionIndexY].path + '/' + sectionIndexX.toString()
-  return window.history.replaceState(null, null, newLocationPathname)
+  if (sectionIndexX === 0)
+  return window.history.replaceState(null, null, '/' + sections[sectionIndexY].path)
+  return window.history.replaceState(null, null, '/' + sections[sectionIndexY].path + '/' + sectionIndexX.toString())
 }
 
 export {
