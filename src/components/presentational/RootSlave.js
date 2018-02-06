@@ -12,7 +12,7 @@ const styles = {
     gridTemplateRows: '1fr 6fr 1fr',
     alignItems: 'center',
   },
-  main : {
+  main: {
     height: '100%',
     display: 'grid',
     alignItems: 'center',
@@ -28,6 +28,7 @@ class RootSlave extends Component {
       SelectedSectionIndexX,
       switchTheme,
       sectionReset,
+      sectionAnimation,
      } = this.props
     const inlineStyles = {
       root: {
@@ -36,9 +37,9 @@ class RootSlave extends Component {
     }
     return (
       <div id='app' style={inlineStyles.root} className={classes.root + ' withThemeTransition'}>
-        <Header switchTheme={switchTheme} sectionReset={sectionReset}/>
+        <Header switchTheme={switchTheme} sectionReset={sectionReset} />
         <main className={classes.main}>
-          <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX}/>
+          <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} />
         </main>
         <Footer />
       </div>

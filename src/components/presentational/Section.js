@@ -1,21 +1,39 @@
 import React, { Component } from 'react'
+import anime from 'animejs'
 
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
+import WithAnimation from 'components/HOC/WithAnimation'
 
 const styles = {
   root: {
     paddingLeft: '4rem',
+    width: 'fit-content',
+    //transform: 'scale(0)',
     // transform: 'translateY(20vh)',
   },
 }
 
-class Blog extends Component {
+class Section extends Component {
+  componentDidAppear() {
+    const {
+      sectionAnimation,
+    } = this.props
+    if (sectionAnimation)
+      anime(
+        Object.assign(
+          {
+            targets: '#currentSection',
+          },
+          sectionAnimation
+        )
+      );
+  }
 
   render() {
     const { type, title, description, classes } = this.props
     return (
-      <div className={classes.root}>
+      <div id='currentSection' className={classes.root}>
         <Typography variant="title">
           {type}
         </Typography>
@@ -30,4 +48,4 @@ class Blog extends Component {
   }
 }
 
-export default withStyles(styles)(Blog)
+export default withStyles(styles)(WithAnimation(Section))

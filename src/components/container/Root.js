@@ -8,6 +8,7 @@ import {
   touchStartHandler,
   touchMoveHandler,
   touchEndHandler,
+  getSectionAnimation,
 } from 'helpers/sectionHelper'
 import { connect } from 'react-redux'
 import {
@@ -85,6 +86,8 @@ class Root extends Component {
     const {
       sectionIndexY,
       sectionIndexX,
+      lastSectionIndexY,
+      lastSectionIndexX,
       sectionReset,
       switchTheme,
       themeType,
@@ -92,9 +95,10 @@ class Root extends Component {
     const SelectedSection = sections[sectionIndexY].component
     const theme = themeType === 'dark' ? themeDark : themeLight
     const SelectedSectionIndexX = sectionIndexX[sectionIndexY]
+    const sectionAnimation = getSectionAnimation(sectionIndexY, lastSectionIndexY, sectionIndexX, lastSectionIndexX)
     return (
       <MuiThemeProvider theme={theme}>
-        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} />
+        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation}/>
       </MuiThemeProvider>
     )
   }
@@ -105,6 +109,8 @@ const mapStateToProps = state => {
     themeType: state.themeType,
     sectionIndexY: state.sectionIndexY,
     sectionIndexX: state.sectionIndexX,
+    lastSectionIndexY: state.lastSectionIndexY,
+    lastSectionIndexX: state.lastSectionIndexX,
   }
 }
 

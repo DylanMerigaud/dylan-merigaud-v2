@@ -4,26 +4,25 @@ import Section from 'components/presentational/Section'
 
 class WebsiteV2 extends Component {
   render() {
-    const { SelectedSectionIndexX } = this.props
-    switch (SelectedSectionIndexX) {
-      case 1:
-        return (
-          <div>
-            1
-          </div>
-        )
-      case 2:
-        return (
-          <div>
-            2
-          </div>
-        )
-      case 0:
-      default:
-        return (
-          <Section type={'Personal project'} title={'WebsiteV2'} description={'Yup it\'s a WebsiteV2'} />
-        )
-    }
+    const {
+      SelectedSectionIndexX,
+      sectionAnimation,
+     } = this.props
+    return (
+
+
+      SelectedSectionIndexX === 1 ? (
+        <div>
+          1
+        </div>
+      ) : SelectedSectionIndexX === 2 ? (
+        <div>
+          2
+        </div>
+      ) : (
+            <Section type={'Personal project'} title={'WebsiteV2'} description={'Yup it\'s a WebsiteV2'} sectionAnimation={sectionAnimation} />
+          )
+    )
   }
 }
 

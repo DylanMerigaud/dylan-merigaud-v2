@@ -36,7 +36,7 @@ const touchMoveHandler = (e) => {
 
 const touchEndHandler = (e, verticalCallback, horizontalCallback) => {
   if (this.touchStartX === undefined || this.touchStartY === undefined)
-  return ;
+    return;
   const travelX = this.touchLastX - this.touchStartX
   const travelY = this.touchLastY - this.touchStartY
   const travelXABS = Math.abs(travelX)
@@ -61,10 +61,43 @@ const sectionGetNewValue = (up, sectionIndex, length, loop = true) => {
 
 const setNewLocationPathname = (sectionIndexY, sectionIndexX) => {
   if (sectionIndexY === 0 && sectionIndexX === 0)
-  return window.history.replaceState(null, null, '/')
+    return window.history.replaceState(null, null, '/')
   if (sectionIndexX === 0)
-  return window.history.replaceState(null, null, '/' + sections[sectionIndexY].path)
+    return window.history.replaceState(null, null, '/' + sections[sectionIndexY].path)
   return window.history.replaceState(null, null, '/' + sections[sectionIndexY].path + '/' + sectionIndexX.toString())
+}
+
+const getSectionAnimation = (sectionIndexY, lastSectionIndexY, sectionIndexX, lastSectionIndexX) => {
+  const duration = 2400
+  const positiveTranslate = '2rem'
+  const negativeTranslate =  '-' + positiveTranslate
+  if (lastSectionIndexY === undefined && lastSectionIndexX === undefined)
+    return undefined
+  else if (sectionIndexY !== lastSectionIndexY) {
+    if (Math.abs(sectionIndexY - lastSectionIndexY) > 1)
+      return {
+        translateY: [sectionIndexY < lastSectionIndexY ? positiveTranslate : negativeTranslate, 0],
+        duration: duration,
+      }
+    else
+      return {
+        translateY: [sectionIndexY < lastSectionIndexY ? negativeTranslate : positiveTranslate, 0],
+        duration: duration,
+      }
+  }
+  else if (sectionIndexX !== lastSectionIndexX) {
+    if (Math.abs(sectionIndexX - lastSectionIndexX) > 1)
+      return {
+        translateX: [sectionIndexX < lastSectionIndexX ? negativeTranslate : positiveTranslate, 0],
+        duration: duration,
+      }
+    else 
+        return {
+          translateX: [sectionIndexX < lastSectionIndexX ? positiveTranslate : negativeTranslate, 0],
+          duration: duration,
+        }
+    
+  }
 }
 
 export {
@@ -77,4 +110,5 @@ export {
   touchEndHandler,
   sectionGetNewValue,
   setNewLocationPathname,
+  getSectionAnimation,
 }

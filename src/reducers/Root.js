@@ -16,7 +16,9 @@ const sectionsYLength = sections.length;
 const initialState = {
   themeType: 'dark',
   sectionIndexY: 0,
-  sectionIndexX: new Array(sectionsYLength).fill(0)
+  sectionIndexX: new Array(sectionsYLength).fill(0),
+  lastSectionIndexY: undefined,
+  lastSectionIndexX: undefined,
 }
 
 const Root = (state = initialState, action) => {
@@ -28,7 +30,11 @@ const Root = (state = initialState, action) => {
         return Object.assign(
           {},
           state,
-          { sectionIndexY: newSectionIndexY },
+          { 
+            sectionIndexY: newSectionIndexY,
+            lastSectionIndexY: state.sectionIndexY,
+            lastSectionIndexX: state.sectionIndexX[state.sectionIndexY],
+           },
         )
       }
     case SECTION_SWITCH_X:
@@ -39,7 +45,11 @@ const Root = (state = initialState, action) => {
         return Object.assign(
           {},
           state,
-          { sectionIndexX: newSectionIndexX },
+          {
+            sectionIndexX: newSectionIndexX,
+            lastSectionIndexY: state.sectionIndexY,
+            lastSectionIndexX: state.sectionIndexX[state.sectionIndexY],
+          },
         )
       }
     case SECTION_SET_FROM_PATHNAME:
@@ -90,6 +100,8 @@ const Root = (state = initialState, action) => {
         {
           sectionIndexY: initialState.sectionIndexY,
           sectionIndexX: initialState.sectionIndexX,
+          lastSectionIndexY: initialState.lastSectionIndexY,
+          lastSectionIndexX: initialState.lastSectionIndexX,
         },
       )
     case SWITCH_THEME:
