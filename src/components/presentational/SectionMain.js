@@ -8,11 +8,14 @@ import WithAnimation from 'components/HOC/WithAnimation'
 const styles = {
   root: {
     paddingLeft: '1rem',
-    width: 'fit-content',
     gridArea: 'SectionMain',
+    justifySelf: 'start',
     //transform: 'scale(0)',
     // transform: 'translateY(20vh)',
   },
+  text: {
+    wordBreak: 'break-word',
+  }
 }
 
 class SectionMain extends Component {
@@ -34,14 +37,14 @@ class SectionMain extends Component {
   render() {
     const { type, title, description, classes } = this.props
     return (
-      <div id='currentSection' className={classes.root}>
+      <div id='currentSection' className={classes.root + ' ' + classes.text}>
         <Typography variant="title">
           {type}
         </Typography>
-        <Typography variant="display3" gutterBottom>
+        <Typography variant="display3" gutterBottom className={classes.text}>
           {title}
         </Typography>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" gutterBottom className={classes.text}>
           {description}
         </Typography>
       </div>

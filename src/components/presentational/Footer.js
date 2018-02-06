@@ -10,6 +10,7 @@ const styles = {
   },
   madeWithLove: {
     textAlign: 'right',
+    wordBreak: 'break-word',
   }
 }
 

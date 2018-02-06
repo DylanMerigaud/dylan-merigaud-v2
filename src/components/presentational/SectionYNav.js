@@ -7,14 +7,18 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up'
 import FaAngleDown from 'react-icons/lib/fa/angle-down'
 
 
-const styles = {
+const styles = (theme) => ({
     root: {
         display: 'grid',
         gridAutoFlow: 'row',
         width: 'fit-content',
         gridArea: 'SectionYNav',
+        alignSelf: 'start',
+        [theme.breakpoints.up('sm')]: {
+            alignSelf: 'initial',
+        }
     },
-}
+})
 
 class SectionYNav extends Component {
     render() {

@@ -7,7 +7,6 @@ import SectionMain from 'components/presentational/SectionMain'
 import SectionYNav from 'components/presentational/SectionYNav'
 import SectionXNav from 'components/presentational/SectionXNav'
 
-
 class Blog extends Component {
   render() {
     const {

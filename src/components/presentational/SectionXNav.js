@@ -8,14 +8,18 @@ import FaAngleRight from 'react-icons/lib/fa/angle-right'
 import FaAngleDoubleLeft from 'react-icons/lib/fa/angle-double-left'
 
 
-const styles = {
+const styles = (theme) => ({
     root: {
         display: 'grid',
         gridAutoFlow: 'column',
         width: 'fit-content',
         gridArea: 'SectionXNav',
+        alignSelf: 'end',
+        [theme.breakpoints.up('sm')]: {
+            alignSelf: 'initial',
+        }
     },
-}
+})
 
 class SectionXNav extends Component {
     render() {
