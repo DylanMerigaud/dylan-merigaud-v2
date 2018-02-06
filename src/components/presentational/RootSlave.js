@@ -29,6 +29,9 @@ class RootSlave extends Component {
       switchTheme,
       sectionReset,
       sectionAnimation,
+      sectionSwitchY,
+      sectionSwitchX,
+      sectionXEnd,
      } = this.props
     const inlineStyles = {
       root: {
@@ -39,7 +42,7 @@ class RootSlave extends Component {
       <div id='app' style={inlineStyles.root} className={classes.root + ' withThemeTransition'}>
         <Header switchTheme={switchTheme} sectionReset={sectionReset} />
         <main className={classes.main}>
-          <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} />
+          <SelectedSection SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} sectionReset={sectionReset} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} />
         </main>
         <Footer />
       </div>

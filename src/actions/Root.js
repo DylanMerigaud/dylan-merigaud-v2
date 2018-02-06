@@ -25,15 +25,16 @@ const sectionSetFromPathname = (pathname) => {
   }
 }
 
-const sectionReset = () => {
+const sectionReset = (onlyX) => {
   return {
     type: SECTION_RESET,
+    onlyX,
   }
 }
 
 const switchTheme = () => {
   return {
-    type: SWITCH_THEME
+    type: SWITCH_THEME,
   }
 }
 

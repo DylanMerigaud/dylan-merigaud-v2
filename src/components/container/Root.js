@@ -88,6 +88,8 @@ class Root extends Component {
       sectionIndexX,
       lastSectionIndexY,
       lastSectionIndexX,
+      sectionSwitchY,
+      sectionSwitchX,
       sectionReset,
       switchTheme,
       themeType,
@@ -96,9 +98,10 @@ class Root extends Component {
     const theme = themeType === 'dark' ? themeDark : themeLight
     const SelectedSectionIndexX = sectionIndexX[sectionIndexY]
     const sectionAnimation = getSectionAnimation(sectionIndexY, lastSectionIndexY, sectionIndexX, lastSectionIndexX)
+    const sectionXEnd = sections[sectionIndexY].length - 1 === sectionIndexX[sectionIndexY]
     return (
       <MuiThemeProvider theme={theme}>
-        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation}/>
+        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd}/>
       </MuiThemeProvider>
     )
   }
@@ -124,8 +127,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(sectionSetFromPathname(pathname)),
     switchTheme: () =>
       dispatch(switchTheme()),
-    sectionReset: () =>
-      dispatch(sectionReset()),
+    sectionReset: (onlyX) =>
+      dispatch(sectionReset(onlyX)),
   }
 }
 

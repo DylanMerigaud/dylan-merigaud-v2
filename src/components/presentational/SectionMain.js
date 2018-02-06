@@ -7,14 +7,15 @@ import WithAnimation from 'components/HOC/WithAnimation'
 
 const styles = {
   root: {
-    paddingLeft: '4rem',
+    paddingLeft: '1rem',
     width: 'fit-content',
+    gridArea: 'SectionMain',
     //transform: 'scale(0)',
     // transform: 'translateY(20vh)',
   },
 }
 
-class Section extends Component {
+class SectionMain extends Component {
   componentDidAppear() {
     const {
       sectionAnimation,
@@ -48,4 +49,4 @@ class Section extends Component {
   }
 }
 
-export default withStyles(styles)(WithAnimation(Section))
+export default withStyles(styles)(WithAnimation(SectionMain))
