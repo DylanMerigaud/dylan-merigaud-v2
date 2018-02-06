@@ -13,7 +13,7 @@ const styles = (theme) => ({
         gridAutoFlow: 'row',
         width: 'fit-content',
         gridArea: 'SectionYNav',
-        alignSelf: 'start',
+        alignSelf: 'end',
         [theme.breakpoints.up('sm')]: {
             alignSelf: 'initial',
         }

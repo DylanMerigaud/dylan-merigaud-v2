@@ -14,7 +14,7 @@ const styles = (theme) => ({
         gridAutoFlow: 'column',
         width: 'fit-content',
         gridArea: 'SectionXNav',
-        alignSelf: 'end',
+        alignSelf: 'start',
         [theme.breakpoints.up('sm')]: {
             alignSelf: 'initial',
         }

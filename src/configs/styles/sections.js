@@ -1,8 +1,8 @@
 const styles = theme => ({
     root: {
         display: 'grid',
-        gridTemplateColumns: 'max-content auto',
-        gridTemplateAreas: '\'SectionXNav SectionMain\' \'SectionYNav SectionMain\'',
+        gridTemplateColumns: '1fr max-content',
+        gridTemplateAreas: '\'SectionMain SectionYNav\' \'SectionMain SectionXNav\'',
         alignItems: 'center',
         justifyItems: 'center',
         [theme.breakpoints.up('sm')]: {

@@ -5,18 +5,19 @@ import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 import WithAnimation from 'components/HOC/WithAnimation'
 
-const styles = {
+const styles = theme => ({
   root: {
-    paddingLeft: '1rem',
+    paddingLeft: '3rem',
     gridArea: 'SectionMain',
     justifySelf: 'start',
-    //transform: 'scale(0)',
-    // transform: 'translateY(20vh)',
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: '1rem',
+    }
   },
   text: {
     wordBreak: 'break-word',
   }
-}
+})
 
 class SectionMain extends Component {
   componentDidAppear() {
