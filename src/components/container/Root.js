@@ -44,9 +44,14 @@ class Root extends Component {
       sectionSetFromPathname,
      } = this.props
 
-    this.mouseWheelHandlerY = (e) => mouseWheelHandlerY(e, sectionSwitchY)
+    this.eventObjectSwitchSection = {
+      canSwitchSection: true,
+      switchSectionTimeout: undefined,
+    }
+
+    this.mouseWheelHandlerY = (e) => mouseWheelHandlerY(e, sectionSwitchY, this.eventObjectSwitchSection)
     this.buttonPressHandlerY = (e) => buttonPressHandlerY(e, sectionSwitchY)
-    this.mouseWheelHandlerX = (e) => mouseWheelHandlerX(e, sectionSwitchX)
+    this.mouseWheelHandlerX = (e) => mouseWheelHandlerX(e, sectionSwitchX, this.eventObjectSwitchSection)
     this.buttonPressHandlerX = (e) => buttonPressHandlerX(e, sectionSwitchX)
 
     this.touchStartHandler = (e) => touchStartHandler(e)
@@ -77,15 +82,18 @@ class Root extends Component {
     window.removeEventListener("wheel", this.mouseWheelHandlerX)
     window.removeEventListener("touchend", this.buttonPressHandlerX)
 
-    backgroundElement.addEventListener("touchstart", this.touchStartHandler)
-    backgroundElement.addEventListener("touchmove", this.touchMoveHandler)
-    window.addEventListener("touchend", this.touchEndHandler)
+    backgroundElement.removeEventListener("touchstart", this.touchStartHandler)
+    window.removeEventListener("touchmove", this.touchMoveHandler)
+    window.removeEventListener("touchend", this.touchEndHandler)
+
+    clearTimeout(this.eventObjectSwitchSection.switchSectionTimeout)
   }
 
   render() {
     const {
       sectionIndexY,
       sectionIndexX,
+      lastMoveDirection,
       lastSectionIndexY,
       lastSectionIndexX,
       sectionSwitchY,
@@ -97,11 +105,12 @@ class Root extends Component {
     const SelectedSection = sections[sectionIndexY].component
     const theme = themeType === 'dark' ? themeDark : themeLight
     const SelectedSectionIndexX = sectionIndexX[sectionIndexY]
-    const sectionAnimation = getSectionAnimation(sectionIndexY, lastSectionIndexY, sectionIndexX, lastSectionIndexX)
-    const sectionXEnd = sections[sectionIndexY].length - 1 === sectionIndexX[sectionIndexY]
+    const sectionXMaxLength = sections[sectionIndexY].length - 1
+    const sectionXEnd = sectionXMaxLength === sectionIndexX[sectionIndexY]
+    const sectionAnimation = getSectionAnimation(sectionIndexY, sectionIndexX, lastMoveDirection, sectionXMaxLength, lastSectionIndexY, lastSectionIndexX)
     return (
       <MuiThemeProvider theme={theme}>
-        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd}/>
+        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} />
       </MuiThemeProvider>
     )
   }
@@ -112,6 +121,7 @@ const mapStateToProps = state => {
     themeType: state.themeType,
     sectionIndexY: state.sectionIndexY,
     sectionIndexX: state.sectionIndexX,
+    lastMoveDirection: state.lastMoveDirection,
     lastSectionIndexY: state.lastSectionIndexY,
     lastSectionIndexX: state.lastSectionIndexX,
   }

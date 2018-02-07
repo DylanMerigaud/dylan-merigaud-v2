@@ -17,8 +17,9 @@ const initialState = {
   themeType: 'dark',
   sectionIndexY: 0,
   sectionIndexX: new Array(sectionsYLength).fill(0),
-  lastSectionIndexY: undefined,
-  lastSectionIndexX: undefined,
+  lastMoveDirection: undefined,
+  lastSectionIndexY: 0,
+  lastSectionIndexX: 0,
 }
 
 const Root = (state = initialState, action) => {
@@ -31,6 +32,7 @@ const Root = (state = initialState, action) => {
           {},
           state,
           {
+            lastMoveDirection: action.up ? 'up' : 'down',
             sectionIndexY: newSectionIndexY,
             lastSectionIndexY: state.sectionIndexY,
             lastSectionIndexX: state.sectionIndexX[state.sectionIndexY],
@@ -46,6 +48,7 @@ const Root = (state = initialState, action) => {
           {},
           state,
           {
+            lastMoveDirection: action.up ? 'right' : 'left',
             sectionIndexX: newSectionIndexX,
             lastSectionIndexY: state.sectionIndexY,
             lastSectionIndexX: state.sectionIndexX[state.sectionIndexY],
@@ -112,6 +115,7 @@ const Root = (state = initialState, action) => {
           {},
           state,
           {
+            lastMoveDirection: 'reset',
             sectionIndexY: initialState.sectionIndexY,
             sectionIndexX: initialState.sectionIndexX,
             lastSectionIndexY: initialState.lastSectionIndexY,

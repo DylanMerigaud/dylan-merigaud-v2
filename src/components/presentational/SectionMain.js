@@ -7,11 +7,11 @@ import WithAnimation from 'components/HOC/WithAnimation'
 
 const styles = theme => ({
   root: {
-    paddingLeft: '3rem',
+    paddingLeft: '2rem',
     gridArea: 'SectionMain',
     justifySelf: 'start',
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: '1rem',
+      paddingLeft: '2rem',
     }
   },
   text: {
@@ -32,7 +32,23 @@ class SectionMain extends Component {
           },
           sectionAnimation
         )
-      );
+      )
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {
+      sectionAnimation,
+    } = nextProps
+
+    anime(
+      Object.assign(
+        {
+          targets: '#currentSection',
+        },
+        sectionAnimation
+      )
+    )
+    return false
   }
 
   render() {

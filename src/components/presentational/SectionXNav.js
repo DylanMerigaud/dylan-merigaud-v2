@@ -11,13 +11,21 @@ import FaAngleDoubleLeft from 'react-icons/lib/fa/angle-double-left'
 const styles = (theme) => ({
     root: {
         display: 'grid',
+        gridTemplateAreas: '\'left right\'',
         gridAutoFlow: 'column',
+        gridAutoColumns: '1fr',
         width: 'fit-content',
         gridArea: 'SectionXNav',
         alignSelf: 'start',
         [theme.breakpoints.up('sm')]: {
             alignSelf: 'initial',
         }
+    },
+    left: {
+        gridArea: 'left',
+    },
+    right: {
+        gridArea: 'right',
     },
 })
 
@@ -28,21 +36,25 @@ class SectionXNav extends Component {
             sectionSwitchX,
             sectionXEnd,
             sectionReset,
+            SelectedSectionIndexX,
          } = this.props
         return (
             <div className={classes.root}>
                 {
-                sectionXEnd ?
-                <IconButton onClick={()=>sectionReset(true)} aria-label="Start">
-                    <FaAngleDoubleLeft />
-                </IconButton> :
-                <IconButton onClick={()=>sectionSwitchX(false)} aria-label="Left">
-                    <FaAngleLeft />
-                </IconButton>
+                    SelectedSectionIndexX !== 0 && (sectionXEnd ?
+                        <IconButton onClick={() => sectionReset(true)} aria-label="Start" className={classes.left}>
+                            <FaAngleDoubleLeft />
+                        </IconButton> :
+                        <IconButton onClick={() => sectionSwitchX(false)} aria-label="Left" className={classes.left}>
+                            <FaAngleLeft />
+                        </IconButton>
+                    )
                 }
-                <IconButton onClick={()=>sectionSwitchX(true)} aria-label="Right">
+                {
+                !sectionXEnd&&<IconButton onClick={() => sectionSwitchX(true)} aria-label="Right" className={classes.right}>
                     <FaAngleRight />
                 </IconButton>
+                }
             </div>
         )
     }

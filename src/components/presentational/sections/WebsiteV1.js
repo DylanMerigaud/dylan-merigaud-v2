@@ -34,7 +34,7 @@ class WebsiteV1 extends Component {
                 <SectionMain type={'Personal project'} title={'WebsiteV1'} description={'Yup it\'s a WebsiteV1'} sectionAnimation={sectionAnimation} />
               )
         }
-        <SectionXNav sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} sectionReset={sectionReset} />
+        <SectionXNav SelectedSectionIndexX={SelectedSectionIndexX} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} sectionReset={sectionReset} />
       </div>
     )
   }
