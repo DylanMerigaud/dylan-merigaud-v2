@@ -7,16 +7,13 @@ import WithAnimation from 'components/HOC/WithAnimation'
 
 const styles = theme => ({
   root: {
-    paddingLeft: '2rem',
+    paddingLeft: '1rem',
     gridArea: 'SectionMain',
     justifySelf: 'start',
     [theme.breakpoints.up('sm')]: {
       paddingLeft: '2rem',
     }
   },
-  text: {
-    wordBreak: 'break-word',
-  }
 })
 
 class SectionMain extends Component {
@@ -39,7 +36,8 @@ class SectionMain extends Component {
     const {
       sectionAnimation,
     } = nextProps
-
+    if (!sectionAnimation) return false
+    console.log(sectionAnimation)
     anime(
       Object.assign(
         {
@@ -54,14 +52,14 @@ class SectionMain extends Component {
   render() {
     const { type, title, description, classes } = this.props
     return (
-      <div id='currentSection' className={classes.root + ' ' + classes.text}>
+      <div id='currentSection' className={classes.root}>
         <Typography variant="title">
           {type}
         </Typography>
-        <Typography variant="display3" gutterBottom className={classes.text}>
+        <Typography variant="display3" gutterBottom>
           {title}
         </Typography>
-        <Typography variant="body1" gutterBottom className={classes.text}>
+        <Typography variant="body1" gutterBottom>
           {description}
         </Typography>
       </div>

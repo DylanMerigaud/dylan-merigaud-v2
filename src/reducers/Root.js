@@ -26,6 +26,7 @@ const Root = (state = initialState, action) => {
   switch (action.type) {
     case SECTION_SWITCH_Y:
       {
+        if (state.sectionIndexX[state.sectionIndexY] !== 0) return state
         const newSectionIndexY = sectionGetNewValue(action.up, state.sectionIndexY, sectionsYLength, true)
         setNewLocationPathname(newSectionIndexY, state.sectionIndexX[newSectionIndexY])
         return Object.assign(

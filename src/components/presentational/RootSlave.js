@@ -7,6 +7,7 @@ import Footer from 'components/presentational/Footer'
 
 const styles = {
   root: {
+    wordBreak: 'break-word',
     height: '100%',
     display: 'grid',
     gridTemplateRows: '1fr 6fr 1fr',

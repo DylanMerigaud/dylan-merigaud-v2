@@ -10,7 +10,6 @@ const styles = {
   },
   madeWithLove: {
     textAlign: 'right',
-    wordBreak: 'break-word',
   }
 }
 
@@ -19,7 +18,7 @@ class Footer extends Component {
     const { classes } = this.props
     return (
       <footer className={classes.root}>
-        <Typography className={classes.madeWithLove} variant="body1">
+        <Typography align='right' className={classes.madeWithLove} variant="body1">
           Made with <span role='img' aria-label='♥'>❤️️</span> by Dylan Merigaud
         </Typography>
       </footer>

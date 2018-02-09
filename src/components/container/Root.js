@@ -102,6 +102,7 @@ class Root extends Component {
       switchTheme,
       themeType,
      } = this.props
+     console.log(lastMoveDirection)
     const SelectedSection = sections[sectionIndexY].component
     const theme = themeType === 'dark' ? themeDark : themeLight
     const SelectedSectionIndexX = sectionIndexX[sectionIndexY]

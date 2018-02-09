@@ -51,9 +51,9 @@ class SectionXNav extends Component {
                     )
                 }
                 {
-                !sectionXEnd&&<IconButton onClick={() => sectionSwitchX(true)} aria-label="Right" className={classes.right}>
-                    <FaAngleRight />
-                </IconButton>
+                    !sectionXEnd && <IconButton onClick={() => sectionSwitchX(true)} aria-label="Right" className={classes.right}>
+                        <FaAngleRight />
+                    </IconButton>
                 }
             </div>
         )

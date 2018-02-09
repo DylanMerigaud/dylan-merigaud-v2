@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 
-import styles from 'configs/styles/sections'
+import styles from 'configs/styles/section'
 
 import SectionMain from 'components/presentational/SectionMain'
 import SectionYNav from 'components/presentational/SectionYNav'
