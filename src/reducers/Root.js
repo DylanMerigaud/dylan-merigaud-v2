@@ -20,6 +20,7 @@ const initialState = {
   lastMoveDirection: undefined,
   lastSectionIndexY: 0,
   lastSectionIndexX: 0,
+  lastAction: undefined,
 }
 
 const Root = (state = initialState, action) => {
@@ -37,6 +38,7 @@ const Root = (state = initialState, action) => {
             sectionIndexY: newSectionIndexY,
             lastSectionIndexY: state.sectionIndexY,
             lastSectionIndexX: state.sectionIndexX[state.sectionIndexY],
+            lastAction: SECTION_SWITCH_Y,
           },
         )
       }
@@ -53,6 +55,7 @@ const Root = (state = initialState, action) => {
             sectionIndexX: newSectionIndexX,
             lastSectionIndexY: state.sectionIndexY,
             lastSectionIndexX: state.sectionIndexX[state.sectionIndexY],
+            lastAction: SECTION_SWITCH_X,
           },
         )
       }
@@ -107,6 +110,7 @@ const Root = (state = initialState, action) => {
           {
             sectionIndexX: newSectionIndexX,
             lastSectionIndexX: state.lastSectionIndexX,
+            lastAction: SECTION_RESET,
           },
         )
       }
@@ -121,6 +125,7 @@ const Root = (state = initialState, action) => {
             sectionIndexX: initialState.sectionIndexX,
             lastSectionIndexY: initialState.lastSectionIndexY,
             lastSectionIndexX: initialState.lastSectionIndexX,
+            lastAction: SECTION_RESET,
           },
         )
       }
@@ -128,7 +133,10 @@ const Root = (state = initialState, action) => {
       return Object.assign(
         {},
         state,
-        { themeType: state.themeType === 'dark' ? 'light' : 'dark' },
+        {
+          themeType: state.themeType === 'dark' ? 'light' : 'dark',
+          lastAction: SWITCH_THEME,
+        },
       )
     default:
       return state

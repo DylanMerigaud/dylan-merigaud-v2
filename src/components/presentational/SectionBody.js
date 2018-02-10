@@ -3,22 +3,23 @@ import anime from 'animejs'
 
 import { withStyles } from 'material-ui/styles'
 import WithAnimation from 'components/HOC/WithAnimation'
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars'
+import {
+  SECTION_SWITCH_Y,
+  SECTION_SWITCH_X,
+} from 'actions/Root'
 
 const styles = theme => ({
   root: {
-    gridArea: 'SectionMain',
-    overflow: 'hidden',
+    // gridArea: 'SectionMain',
   },
   content: {
-    paddingLeft: '1rem',
     display: 'grid',
-    justifyContent: 'center',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(16rem, 1fr))',
-    gridColumnGap: '1rem',
-    gridRowGap: '1rem',
+    justifyItems: 'center',
+    gridAutoFlow: 'row',
+    margin: '0 4.5rem 0 4rem',
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: '2rem',
+      // paddingLeft: '2rem',
     },
   },
 })
@@ -47,8 +48,9 @@ class SectionBody extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const {
       sectionAnimation,
+      lastAction,
     } = nextProps
-    if (!sectionAnimation) return false
+    if (!sectionAnimation || (lastAction !== SECTION_SWITCH_Y && lastAction !== SECTION_SWITCH_X)) return true
     anime(
       Object.assign(
         {
@@ -57,7 +59,7 @@ class SectionBody extends Component {
         sectionAnimation
       )
     )
-    return false
+    return true
   }
 
   renderThumb({ style, ...props }) {
@@ -76,8 +78,8 @@ class SectionBody extends Component {
   render() {
     const { classes, children } = this.props
     return (
-      <Scrollbars id='currentSection' className={classes.root} renderThumbVertical={this.renderThumb}>
-        <div className={classes.content}>
+      <Scrollbars className={classes.root} renderThumbVertical={this.renderThumb}>
+        <div className={classes.content} id='currentSection'>
           {children}
         </div>
       </Scrollbars>

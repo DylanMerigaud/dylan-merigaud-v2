@@ -21,6 +21,7 @@ class Blog extends Component {
       sectionSwitchX,
       sectionXEnd,
       sectionReset,
+      lastAction,
      } = this.props
     return (
       <div className={classes.root}>
@@ -29,7 +30,8 @@ class Blog extends Component {
         }
         {
           SelectedSectionIndexX === 1 ? (
-            <SectionBody sectionAnimation={sectionAnimation}>
+            <SectionBody sectionAnimation={sectionAnimation} lastAction={lastAction}>
+            <div className={classes.subSectionsContainer}>
               <Paper className={classes.paper}>
                 <Typography variant="display1" gutterBottom>
                   Front-End
@@ -119,12 +121,23 @@ class Blog extends Component {
                   react
                 </Typography>
               </Paper>
+              </div>
             </SectionBody>
           ) : SelectedSectionIndexX === 2 ? (
-            <SectionBody sectionAnimation={sectionAnimation}>
+            <SectionBody sectionAnimation={sectionAnimation} lastAction={lastAction}>
+            <div className={classes.subSectionsContainer}>
+              <Paper className={classes.paper}>
+                <Typography variant="display1" gutterBottom>
+                  Front-End
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  react
+                </Typography>
+              </Paper>
+              </div>
             </SectionBody>
           ) : (
-                <SectionMain type={'Personal project'} title={'Blog'} description={'Yup it\'s a Blog'} sectionAnimation={sectionAnimation} />
+                <SectionMain type={'Personal project'} title={'Blog'} description={'Yup it\'s a Blog'} sectionAnimation={sectionAnimation} lastAction={lastAction}/>
               )
         }
         <SectionXNav SelectedSectionIndexX={SelectedSectionIndexX} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} sectionReset={sectionReset} />

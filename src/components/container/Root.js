@@ -101,6 +101,7 @@ class Root extends Component {
       sectionReset,
       switchTheme,
       themeType,
+      lastAction,
      } = this.props
      console.log(lastMoveDirection)
     const SelectedSection = sections[sectionIndexY].component
@@ -111,7 +112,7 @@ class Root extends Component {
     const sectionAnimation = getSectionAnimation(sectionIndexY, sectionIndexX, lastMoveDirection, sectionXMaxLength, lastSectionIndexY, lastSectionIndexX)
     return (
       <MuiThemeProvider theme={theme}>
-        <RootSlave switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} />
+        <RootSlave lastAction={lastAction} switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} />
       </MuiThemeProvider>
     )
   }
@@ -125,6 +126,7 @@ const mapStateToProps = state => {
     lastMoveDirection: state.lastMoveDirection,
     lastSectionIndexY: state.lastSectionIndexY,
     lastSectionIndexX: state.lastSectionIndexX,
+    lastAction: state.lastAction,
   }
 }
 

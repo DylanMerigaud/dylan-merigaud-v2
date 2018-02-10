@@ -8,35 +8,33 @@ import FaAngleDown from 'react-icons/lib/fa/angle-down'
 
 
 const styles = (theme) => ({
-    root: {
-        display: 'grid',
-        gridAutoFlow: 'row',
-        width: 'fit-content',
-        gridArea: 'SectionYNav',
-        alignSelf: 'end',
-        [theme.breakpoints.up('sm')]: {
-            alignSelf: 'initial',
-        }
-    },
+  root: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    display: 'grid',
+    gridAutoFlow: 'row',
+    gridAutoColumns: '3rem',
+  },
 })
 
 class SectionYNav extends Component {
-    render() {
-        const { 
-            classes,
-            sectionSwitchY,
+  render() {
+    const {
+      classes,
+      sectionSwitchY,
          } = this.props
-        return (
-            <div className={classes.root}>
-                <IconButton onClick={()=>sectionSwitchY(false)} aria-label="Up">
-                    <FaAngleUp />
-                </IconButton>
-                <IconButton onClick={()=>sectionSwitchY(true)} aria-label="Down">
-                    <FaAngleDown />
-                </IconButton>
-            </div>
-        )
-    }
+    return (
+      <div className={classes.root}>
+        <IconButton onClick={() => sectionSwitchY(false)} aria-label="Up">
+          <FaAngleUp />
+        </IconButton>
+        <IconButton onClick={() => sectionSwitchY(true)} aria-label="Down">
+          <FaAngleDown />
+        </IconButton>
+      </div>
+    )
+  }
 }
 
 export default withStyles(styles)(SectionYNav)

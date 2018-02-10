@@ -83,9 +83,9 @@ const setNewLocationPathname = (sectionIndexY, sectionIndexX) => {
 }
 
 const getSectionAnimation = (sectionIndexY, sectionIndexX, lastMoveDirection, sectionXMaxLength, lastSectionIndexY, lastSectionIndexX) => {
-  const duration = 2400
+  const duration = 2500
   const regularElasticity = 500
-  const errorElasticity = 1000
+  const errorElasticity = 900
   const positiveTranslate = '2rem'
   const negativeTranslate = '-' + positiveTranslate
   if (lastMoveDirection === 'up') {

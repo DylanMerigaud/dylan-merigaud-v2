@@ -17,6 +17,7 @@ class WebsiteV1 extends Component {
       sectionSwitchX,
       sectionXEnd,
       sectionReset,
+      lastAction,
      } = this.props
     return (
       <div className={classes.root}>
@@ -31,7 +32,7 @@ class WebsiteV1 extends Component {
               2
             </div>
           ) : (
-                <SectionMain type={'Personal project'} title={'WebsiteV1'} description={'Yup it\'s a WebsiteV1'} sectionAnimation={sectionAnimation} />
+                <SectionMain type={'Personal project'} title={'WebsiteV1'} description={'Yup it\'s a WebsiteV1'} sectionAnimation={sectionAnimation} lastAction={lastAction}/>
               )
         }
         <SectionXNav SelectedSectionIndexX={SelectedSectionIndexX} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} sectionReset={sectionReset} />
