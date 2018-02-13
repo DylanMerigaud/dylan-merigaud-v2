@@ -3,19 +3,13 @@ const styles = theme => ({
     height: '100%',
     display: 'grid',
     alignItems: 'center',
-    [theme.breakpoints.up('sm')]: {
-      // justifyItems: 'start',
-      // gridTemplateColumns: 'max-content 1fr max-content',
-      // gridTemplateAreas: '\'SectionYNav SectionMain SectionXNav\'',
-    }
   },
   subSectionsContainer: {
     display: 'flex',
     flexWrap : 'wrap',
     justifyContent: 'center',
     '& *': {
-      // width: '16rem',
-      margin: '1rem',
+      margin: '1rem 1rem 3rem 1rem',
     },
   },
   paper: {

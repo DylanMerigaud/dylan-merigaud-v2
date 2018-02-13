@@ -6,7 +6,6 @@ import {
 import {
   SECTION_SWITCH_Y,
   SECTION_SWITCH_X,
-  SECTION_SET_FROM_PATHNAME,
   SECTION_RESET,
   SWITCH_THEME,
 } from 'actions/Root'
@@ -28,7 +27,7 @@ const Root = (state = initialState, action) => {
     case SECTION_SWITCH_Y:
       {
         if (state.sectionIndexX[state.sectionIndexY] !== 0) return state
-        const newSectionIndexY = sectionGetNewValue(action.up, state.sectionIndexY, sectionsYLength, true)
+        const newSectionIndexY = sectionGetNewValue(!action.up, state.sectionIndexY, sectionsYLength, true)
         setNewLocationPathname(newSectionIndexY, state.sectionIndexX[newSectionIndexY])
         return Object.assign(
           {},
@@ -57,46 +56,6 @@ const Root = (state = initialState, action) => {
             lastSectionIndexX: state.sectionIndexX[state.sectionIndexY],
             lastAction: SECTION_SWITCH_X,
           },
-        )
-      }
-    case SECTION_SET_FROM_PATHNAME:
-      {
-        const pathnameArray = action.pathname.split('/').filter(elem => elem !== '')
-        if (pathnameArray.length === 1 || pathnameArray.length === 2) {
-          let sectionIndexY;
-          for (var i = 0; i < sectionsYLength; i++)
-            if (sections[i].path === pathnameArray[0]) {
-              sectionIndexY = i
-              break
-            }
-          if (sectionIndexY !== undefined) {
-            if (pathnameArray.length === 1)
-              return Object.assign(
-                {},
-                state,
-                {
-                  sectionIndexY,
-                },
-              )
-            const parsedSecondePathname = parseInt(pathnameArray[1], 10)
-            if (!isNaN(parsedSecondePathname) && parsedSecondePathname >= 0 && parsedSecondePathname < sections[sectionIndexY].length) {
-              const newSectionIndexX = state.sectionIndexX.slice(0)
-              newSectionIndexX[sectionIndexY] = parsedSecondePathname
-              return Object.assign(
-                {},
-                state,
-                {
-                  sectionIndexY,
-                  sectionIndexX: newSectionIndexX,
-                },
-              )
-            }
-          }
-        }
-        setNewLocationPathname(state.sectionIndexY, state.sectionIndexX[state.sectionIndexY])
-        return Object.assign(
-          {},
-          state,
         )
       }
     case SECTION_RESET:

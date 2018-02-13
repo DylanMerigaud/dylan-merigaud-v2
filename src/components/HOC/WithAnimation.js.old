@@ -1,0 +1,51 @@
+
+import React, { Component } from 'react'
+
+import ReactTransitionGroup from 'react-addons-transition-group'
+
+function FirstChild(props) {
+  const childrenArray = React.Children.toArray(props.children);
+  return childrenArray[0] || null;
+}
+
+const WithAnimation = ComponentToAnimate => class ComponentWithAnimation extends Component {
+  render() {
+    return (
+      <Transition timeout={500}
+        in={true}
+        onEnter={() => console.log('mdr')}
+        onEntering={() => console.log('mdr')}
+        onEntered={() => console.log('mdr')}
+        onExit={() => console.log('mdr')}
+        onExiting={() => console.log('mdr')}
+        onExited={() => console.log('mdr')}
+      >
+        <ComponentToAnimate {...this.props} />
+      </Transition>
+    )
+  }
+}
+
+export default WithAnimation
+
+
+// import React, { Component } from 'react'
+
+// import ReactTransitionGroup from 'react-addons-transition-group'
+
+// function FirstChild(props) {
+//     const childrenArray = React.Children.toArray(props.children);
+//     return childrenArray[0] || null;
+//   }
+
+// const WithAnimation = ComponentToAnimate => class ComponentWithAnimation extends Component {
+//     render() {
+//         return (
+//             <ReactTransitionGroup component={FirstChild}>
+//                 <ComponentToAnimate {...this.props} />
+//             </ReactTransitionGroup>
+//         )
+//     }
+// }
+
+// export default WithAnimation

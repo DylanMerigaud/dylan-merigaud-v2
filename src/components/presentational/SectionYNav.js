@@ -26,10 +26,10 @@ class SectionYNav extends Component {
          } = this.props
     return (
       <div className={classes.root}>
-        <IconButton onClick={() => sectionSwitchY(false)} aria-label="Up">
+        <IconButton onClick={() => sectionSwitchY(true)} aria-label="Up">
           <FaAngleUp />
         </IconButton>
-        <IconButton onClick={() => sectionSwitchY(true)} aria-label="Down">
+        <IconButton onClick={() => sectionSwitchY(false)} aria-label="Down">
           <FaAngleDown />
         </IconButton>
       </div>

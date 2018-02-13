@@ -8,7 +8,6 @@ import {
   touchStartHandler,
   touchMoveHandler,
   touchEndHandler,
-  getSectionAnimation,
 } from 'helpers/sectionHelper'
 import { connect } from 'react-redux'
 import {
@@ -36,12 +35,15 @@ const themeLight = createMuiTheme({
 })
 
 class Root extends Component {
+  componentWillMount() {
+    sectionSetFromPathname(window.location.pathname)
+  }
+
   constructor(props) {
     super(props)
     const {
       sectionSwitchY,
       sectionSwitchX,
-      sectionSetFromPathname,
      } = this.props
 
     this.eventObjectSwitchSection = {
@@ -57,8 +59,6 @@ class Root extends Component {
     this.touchStartHandler = (e) => touchStartHandler(e)
     this.touchMoveHandler = (e) => touchMoveHandler(e)
     this.touchEndHandler = (e) => touchEndHandler(e, sectionSwitchY, sectionSwitchX)
-
-    sectionSetFromPathname(window.location.pathname)
   }
 
   componentDidMount() {
@@ -103,16 +103,16 @@ class Root extends Component {
       themeType,
       lastAction,
      } = this.props
-     console.log(lastMoveDirection)
-    const SelectedSection = sections[sectionIndexY].component
-    const theme = themeType === 'dark' ? themeDark : themeLight
     const SelectedSectionIndexX = sectionIndexX[sectionIndexY]
-    const sectionXMaxLength = sections[sectionIndexY].length - 1
+    const SelectedSection = sections[sectionIndexY].components[sectionIndexX[sectionIndexY]]
+    const keySelectedSection = 'currentSection-' + sectionIndexY.toString() + '-' + SelectedSectionIndexX.toString()
+    const theme = themeType === 'dark' ? themeDark : themeLight
+    const sectionXMaxLength = sections[sectionIndexY].components.length - 1
     const sectionXEnd = sectionXMaxLength === sectionIndexX[sectionIndexY]
-    const sectionAnimation = getSectionAnimation(sectionIndexY, sectionIndexX, lastMoveDirection, sectionXMaxLength, lastSectionIndexY, lastSectionIndexX)
+    const sectionXEndOrStart = SelectedSectionIndexX === sectionXMaxLength || SelectedSectionIndexX === 0
     return (
       <MuiThemeProvider theme={theme}>
-        <RootSlave lastAction={lastAction} switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionAnimation={sectionAnimation} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} />
+        <RootSlave sectionXEndOrStart={sectionXEndOrStart} sectionIndexY={sectionIndexY} sectionIndexX={sectionIndexX} sectionXMaxLength={sectionXMaxLength} lastSectionIndexY={lastSectionIndexY} lastSectionIndexX={lastSectionIndexX} lastMoveDirection={lastMoveDirection} keySelectedSection={keySelectedSection} lastAction={lastAction} switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} />
       </MuiThemeProvider>
     )
   }

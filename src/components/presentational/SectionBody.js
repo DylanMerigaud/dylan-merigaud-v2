@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
-import anime from 'animejs'
 
 import { withStyles } from 'material-ui/styles'
-import WithAnimation from 'components/HOC/WithAnimation'
 import { Scrollbars } from 'react-custom-scrollbars'
-import {
-  SECTION_SWITCH_Y,
-  SECTION_SWITCH_X,
-} from 'actions/Root'
 
 const styles = theme => ({
   root: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
     // gridArea: 'SectionMain',
   },
   content: {
@@ -30,37 +27,10 @@ class SectionBody extends Component {
     this.renderThumb = this.renderThumb.bind(this)
   }
 
-  componentDidAppear() {
-    const {
-      sectionAnimation,
-    } = this.props
-    if (sectionAnimation)
-      anime(
-        Object.assign(
-          {
-            targets: '#currentSection',
-          },
-          sectionAnimation
-        )
-      )
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const {
-      sectionAnimation,
-      lastAction,
-    } = nextProps
-    if (!sectionAnimation || (lastAction !== SECTION_SWITCH_Y && lastAction !== SECTION_SWITCH_X)) return true
-    anime(
-      Object.assign(
-        {
-          targets: '#currentSection',
-        },
-        sectionAnimation
-      )
-    )
-    return true
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   nextProps.animateOnComponentShouldUpdate()
+  //   return true
+  // }
 
   renderThumb({ style, ...props }) {
     const thumbStyle = {
@@ -76,15 +46,17 @@ class SectionBody extends Component {
   }
 
   render() {
-    const { classes, children } = this.props
+    const { classes, children, keySelectedSection } = this.props
     return (
-      <Scrollbars className={classes.root} renderThumbVertical={this.renderThumb}>
-        <div className={classes.content} id='currentSection'>
+      <div className={classes.root}>
+      <Scrollbars renderThumbVertical={this.renderThumb}>
+        <div className={classes.content} id={keySelectedSection}>
           {children}
         </div>
       </Scrollbars>
+      </div>
     )
   }
 }
 
-export default withStyles(styles, { withTheme: true })(WithAnimation(SectionBody))
+export default withStyles(styles, { withTheme: true })(SectionBody)

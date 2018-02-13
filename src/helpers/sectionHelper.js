@@ -82,57 +82,59 @@ const setNewLocationPathname = (sectionIndexY, sectionIndexX) => {
   return window.history.replaceState(null, null, '/' + sections[sectionIndexY].path + '/' + sectionIndexX.toString())
 }
 
-const getSectionAnimation = (sectionIndexY, sectionIndexX, lastMoveDirection, sectionXMaxLength, lastSectionIndexY, lastSectionIndexX) => {
+const getSectionAnimation = (lastMoveDirection, isAnError, TransitionStatus) => {
   const duration = 2500
+  const durationOpacityExit = 1000
   const regularElasticity = 500
   const errorElasticity = 900
-  const positiveTranslate = '2rem'
-  const negativeTranslate = '-' + positiveTranslate
-  if (lastMoveDirection === 'up') {
-    return {
+  const positiveTranslate = 2
+  const negativeTranslate = -positiveTranslate
+  const unit = 'rem'
+  let returnObject;
+  if (lastMoveDirection === 'up')
+    returnObject = {
       translateY: [negativeTranslate, 0],
       duration: duration,
       elasticity: regularElasticity,
     }
-  }
-  else if (lastMoveDirection === 'down') {
-    return {
+  else if (lastMoveDirection === 'down')
+    returnObject = {
       translateY: [positiveTranslate, 0],
       duration: duration,
       elasticity: regularElasticity,
     }
-  }
-  else if (lastMoveDirection === 'left') {
-    if (sectionIndexX[sectionIndexY] === 0 && sectionIndexX[sectionIndexY] === lastSectionIndexX)
-    return {
+  else if (lastMoveDirection === 'left')
+    returnObject = {
       translateX: [negativeTranslate, 0],
       duration: duration,
-      elasticity: errorElasticity,
+      elasticity: isAnError ? errorElasticity : regularElasticity,
     }
-    else
-    return {
-      translateX: [negativeTranslate, 0],
-      duration: duration,
-      elasticity: regularElasticity,
-    }
-  }
-  else if (lastMoveDirection === 'right') {
-    if (sectionXMaxLength === sectionIndexX[sectionIndexY] && sectionXMaxLength === lastSectionIndexX)
-    return {
+  else if (lastMoveDirection === 'right')
+    returnObject = {
       translateX: [positiveTranslate, 0],
       duration: duration,
-      elasticity: errorElasticity,
+      elasticity: isAnError ? errorElasticity : regularElasticity,
     }
-    else
-    return {
-      translateX: [positiveTranslate, 0],
-      duration: duration,
-      elasticity: regularElasticity,
-    }
-  }
   else if (lastMoveDirection === 'reset') {
 
   }
+  if (TransitionStatus === 'onExiting')
+    returnObject.opacity = { value: 0, elasticity: 0, duration: durationOpacityExit }
+  else
+    returnObject.opacity = { value: 1, elasticity: 0 }
+  if (returnObject.translateX) {
+    if (TransitionStatus === 'onExiting')
+      returnObject.translateX = [returnObject.translateX[1], -returnObject.translateX[0]]
+    returnObject.translateX[0] = returnObject.translateX[0].toString() + unit
+    returnObject.translateX[1] = returnObject.translateX[1].toString() + unit
+  }
+  if (returnObject.translateY) {
+    if (TransitionStatus === 'onExiting')
+      returnObject.translateY = [returnObject.translateY[1], -returnObject.translateY[0]]
+    returnObject.translateY[0] = returnObject.translateY[0].toString() + unit
+    returnObject.translateY[1] = returnObject.translateY[1].toString() + unit
+  }
+  return returnObject
 }
 
 export {

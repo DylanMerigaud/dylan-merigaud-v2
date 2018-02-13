@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
-import anime from 'animejs'
 
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
-import WithAnimation from 'components/HOC/WithAnimation'
-import {
-  SECTION_SWITCH_Y,
-  SECTION_SWITCH_X,
-} from 'actions/Root'
 
 const styles = theme => ({
   root: {
+    position: 'absolute',
     display: 'grid',
     gridTemplateRows: '1fr 1fr 1fr',
     alignItems: 'center',
@@ -31,42 +26,15 @@ const styles = theme => ({
 })
 
 class SectionMain extends Component {
-  componentDidAppear() {
-    const {
-      sectionAnimation,
-    } = this.props
-    if (sectionAnimation)
-      anime(
-        Object.assign(
-          {
-            targets: '#currentSection',
-          },
-          sectionAnimation
-        )
-      )
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const {
-      sectionAnimation,
-      lastAction,
-    } = nextProps
-    if (!sectionAnimation || (lastAction !== SECTION_SWITCH_Y && lastAction !== SECTION_SWITCH_X)) return true
-    anime(
-      Object.assign(
-        {
-          targets: '#currentSection',
-        },
-        sectionAnimation
-      )
-    )
-    return true
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   nextProps.animateOnComponentShouldUpdate()
+  //   return true
+  // }
 
   render() {
-    const { type, title, description, classes } = this.props
+    const { type, title, description, classes, keySelectedSection } = this.props
     return (
-      <div id='currentSection' className={classes.root}>
+      <div id={keySelectedSection} className={classes.root}>
         <Typography variant="title" className={classes.title}>
           {type}
         </Typography>
@@ -81,4 +49,4 @@ class SectionMain extends Component {
   }
 }
 
-export default withStyles(styles)(WithAnimation(SectionMain))
+export default withStyles(styles)(SectionMain)
