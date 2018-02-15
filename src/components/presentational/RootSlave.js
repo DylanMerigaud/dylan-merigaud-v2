@@ -57,7 +57,6 @@ class RootSlave extends Component {
       sectionXEnd,
       lastAction,
       keySelectedSection,
-      lastMoveDirection,
       sectionXMaxLength,
       lastSectionIndexX,
     } = this.props
@@ -67,20 +66,20 @@ class RootSlave extends Component {
       },
     }
 
-    console.log('xday', this.props.lastMoveDirection, lastMoveDirection)
     const isAnError = (
       (SelectedSectionIndexX === sectionXMaxLength && this.props.lastMoveDirection === 'right' && lastSectionIndexX === SelectedSectionIndexX) ||
       (SelectedSectionIndexX === 0 && this.props.lastMoveDirection === 'left' && lastSectionIndexX === SelectedSectionIndexX)
     )
       && lastAction === SECTION_SWITCH_X
     if (isAnError) {
-      console.log('FDSFDS')
-      anime(
+      if (this.isAnErrorAnime)
+        !this.isAnErrorAnime.completed && this.isAnErrorAnime.seek(this.isAnErrorAnime.duration)
+      this.isAnErrorAnime = anime(
         Object.assign(
           {
             targets: '#' + keySelectedSection,
           },
-          getSectionAnimation(lastMoveDirection, isAnError)
+          getSectionAnimation(this.props.lastMoveDirection, isAnError, this.props.lastAction)
         )
       )
     }
@@ -92,20 +91,36 @@ class RootSlave extends Component {
           <TransitionGroup className={classes.ReactTransitionGroup}>
             <Transition
               key={keySelectedSection}
-              timeout={1250}
+              // timeout={{
+              //   enter: 2500,
+              //   exit: 1000,
+              // }}
+              addEndListener={(node, done) => {
+                node.addEventListener('transitionend', done, false);
+              }}
               onEntering={() => {
-                anime(
+                if (this.onEnteringAnime)
+                  !this.onEnteringAnime.completed && this.onEnteringAnime.seek(this.onEnteringAnime.duration)
+                this.onEnteringAnime = anime(
                   Object.assign(
-                    { targets: '#' + keySelectedSection, },
-                    getSectionAnimation(this.props.lastMoveDirection, false, 'onEntering')
+                    {
+                      targets: '#' + keySelectedSection,
+                    },
+                    getSectionAnimation(this.props.lastMoveDirection, false, this.props.lastAction, 'onEntering')
                   )
                 )
               }}
               onExiting={() => {
-                anime(
+                if (this.onExitingAnime)
+                  !this.onExitingAnime.completed && this.onExitingAnime.seek(this.onExitingAnime.duration)
+                if (this.isAnErrorAnime)
+                  !this.isAnErrorAnime.completed && this.isAnErrorAnime.seek(this.isAnErrorAnime.duration)
+                this.onExitingAnime = anime(
                   Object.assign(
-                    { targets: '#' + keySelectedSection, },
-                    getSectionAnimation(this.props.lastMoveDirection, false, 'onExiting')
+                    {
+                      targets: '#' + keySelectedSection,
+                    },
+                    getSectionAnimation(this.props.lastMoveDirection, false, this.props.lastAction, 'onExiting')
                   )
                 )
               }}

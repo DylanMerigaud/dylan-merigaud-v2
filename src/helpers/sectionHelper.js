@@ -6,7 +6,7 @@ const canSwitchSection = (eventObjectSwitchSection) => {
     eventObjectSwitchSection.canSwitchSectionSetTimeout = setTimeout(() => {
       eventObjectSwitchSection.canSwitchSection = true
       eventObjectSwitchSection.canSwitchSectionSetTimeout = undefined
-    }, 300)
+    }, 200)
     return true
   }
   else
@@ -25,12 +25,12 @@ const mouseWheelHandlerY = (e, callback, eventObjectSwitchSection) => {
   else if (e.deltaY > 0) callback(false)
 }
 
-const buttonPressHandlerX = (e, callback) => {
+const buttonPressHandlerX = (e, callback, eventObjectSwitchSection) => {
   if (e.code === 'ArrowRight') callback(true)
   else if (e.code === 'ArrowLeft') callback(false)
 }
 
-const buttonPressHandlerY = (e, callback) => {
+const buttonPressHandlerY = (e, callback, eventObjectSwitchSection) => {
   if (e.code === 'ArrowUp') callback(true)
   else if (e.code === 'ArrowDown') callback(false)
 }
@@ -82,7 +82,7 @@ const setNewLocationPathname = (sectionIndexY, sectionIndexX) => {
   return window.history.replaceState(null, null, '/' + sections[sectionIndexY].path + '/' + sectionIndexX.toString())
 }
 
-const getSectionAnimation = (lastMoveDirection, isAnError, TransitionStatus) => {
+const getSectionAnimation = (lastMoveDirection, isAnError, lastAction, TransitionStatus) => {
   const duration = 2500
   const durationOpacityExit = 1000
   const regularElasticity = 500
@@ -116,10 +116,15 @@ const getSectionAnimation = (lastMoveDirection, isAnError, TransitionStatus) => 
       elasticity: isAnError ? errorElasticity : regularElasticity,
     }
   else if (lastMoveDirection === 'reset') {
-
+    return returnObject = {
+      opacity: { value: TransitionStatus === 'onExiting' ? 0 : 1 , elasticity: 0 },
+      translateX: 0,
+      translateY: 0,
+    }
   }
-  if (TransitionStatus === 'onExiting')
+  if (TransitionStatus === 'onExiting') {
     returnObject.opacity = { value: 0, elasticity: 0, duration: durationOpacityExit }
+  }
   else
     returnObject.opacity = { value: 1, elasticity: 0 }
   if (returnObject.translateX) {
@@ -137,6 +142,36 @@ const getSectionAnimation = (lastMoveDirection, isAnError, TransitionStatus) => 
   return returnObject
 }
 
+const sectionSetFromPath = (pathname, sectionsYLength, sectionIndexX) => {
+  const pathnameArray = pathname.split('/').filter(elem => elem !== '')
+  if (pathnameArray.length === 1 || pathnameArray.length === 2) {
+    let sectionIndexY;
+    for (var i = 0; i < sectionsYLength; i++)
+      if (sections[i].path === pathnameArray[0]) {
+        sectionIndexY = i
+        break
+      }
+    if (sectionIndexY !== undefined) {
+      if (pathnameArray.length === 1) {
+        setNewLocationPathname(sectionIndexY, 0)
+        return {
+          sectionIndexY,
+        }
+      }
+      const parsedSecondePathname = parseInt(pathnameArray[1], 10)
+      if (!isNaN(parsedSecondePathname) && parsedSecondePathname >= 0 && parsedSecondePathname < sections[sectionIndexY].components.length) {
+        const newSectionIndexX = sectionIndexX.slice(0)
+        newSectionIndexX[sectionIndexY] = parsedSecondePathname
+        setNewLocationPathname(sectionIndexY, newSectionIndexX[sectionIndexY])
+        return {
+          sectionIndexY,
+          sectionIndexX: newSectionIndexX,
+        }
+      }
+    }
+  }
+}
+
 export {
   mouseWheelHandlerX,
   mouseWheelHandlerY,
@@ -148,4 +183,5 @@ export {
   sectionGetNewValue,
   setNewLocationPathname,
   getSectionAnimation,
+  sectionSetFromPath,
 }

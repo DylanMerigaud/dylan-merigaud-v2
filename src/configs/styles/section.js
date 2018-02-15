@@ -8,12 +8,22 @@ const styles = theme => ({
     display: 'flex',
     flexWrap : 'wrap',
     justifyContent: 'center',
-    '& *': {
-      margin: '1rem 1rem 3rem 1rem',
-    },
+    paddingBottom: '1rem',
+
+    // '& *': {
+    //   margin: '1rem',
+    // },
   },
   paper: {
-    padding: '1rem'
+    maxWidth: '25rem',
+    padding: '1.5rem',
+    margin: '1rem',
+  },
+  paperTitle: {
+    textAlign: 'center',
+  },
+  ListItem: {
+    paddingTop: 0,
   },
 })
 

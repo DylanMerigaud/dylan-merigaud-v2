@@ -15,9 +15,13 @@ const styles = (theme) => ({
     transform: 'translateY(-50%)',
     position: 'absolute',
     display: 'grid',
-    gridTemplateAreas: '\'left right\'',
-    gridAutoFlow: 'column',
-    gridAutoColumns: '3rem',
+    // gridTemplateAreas: '\'left right\'',
+    gridTemplateAreas: '\'left\' \'right\'',
+    gridAutoRows: '3rem',
+    [theme.breakpoints.up('sm')]: {
+      gridAutoColumns: '3rem',
+      gridTemplateAreas: '\'left right\'',
+    },
   },
   left: {
     gridArea: 'left',
@@ -35,23 +39,22 @@ class SectionXNav extends Component {
       sectionXEnd,
       sectionReset,
       SelectedSectionIndexX,
-         } = this.props
+    } = this.props
     return (
       <div className={classes.root}>
         {
-          SelectedSectionIndexX !== 0 && (sectionXEnd ?
-            <IconButton onClick={() => sectionReset(true)} aria-label="Start" className={classes.left}>
-              <FaAngleDoubleLeft />
-            </IconButton> :
-            <IconButton onClick={() => sectionSwitchX(false)} aria-label="Left" className={classes.left}>
-              <FaAngleLeft />
-            </IconButton>
-          )
+          SelectedSectionIndexX !== 0 &&
+          <IconButton onClick={() => sectionSwitchX(false)} aria-label="Left" className={classes.left}>
+            <FaAngleLeft />
+          </IconButton>
         }
         {
-          !sectionXEnd && <IconButton onClick={() => sectionSwitchX(true)} aria-label="Right" className={classes.right}>
+          !sectionXEnd ? <IconButton onClick={() => sectionSwitchX(true)} aria-label="Right" className={classes.right}>
             <FaAngleRight />
-          </IconButton>
+          </IconButton> :
+            <IconButton onClick={() => sectionReset(true)} aria-label="Start" className={classes.right}>
+              <FaAngleDoubleLeft />
+            </IconButton>
         }
       </div>
     )

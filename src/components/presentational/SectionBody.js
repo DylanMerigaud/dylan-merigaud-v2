@@ -13,10 +13,13 @@ const styles = theme => ({
   content: {
     display: 'grid',
     justifyItems: 'center',
+    alignContent: 'center',
+    minHeight: '100%',
     gridAutoFlow: 'row',
-    margin: '0 4.5rem 0 4rem',
+    margin: '0 3rem 0 3rem',
     [theme.breakpoints.up('sm')]: {
       // paddingLeft: '2rem',
+      margin: '0 6rem 0 6rem',
     },
   },
 })

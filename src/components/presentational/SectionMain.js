@@ -10,11 +10,11 @@ const styles = theme => ({
     gridTemplateRows: '1fr 1fr 1fr',
     alignItems: 'center',
     justifySelf: 'start',
-    margin: '0 0 0 4rem',
+    margin: '0 3rem 0 3rem',
     [theme.breakpoints.up('sm')]: {
-      // paddingLeft: '5rem',
-      // paddingRight: '5rem',
-    }
+      // paddingLeft: '2rem',
+      margin: '0 5rem 0 5rem',
+    },
   },
   title: {
     alignSelf: 'end',
@@ -26,11 +26,6 @@ const styles = theme => ({
 })
 
 class SectionMain extends Component {
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   nextProps.animateOnComponentShouldUpdate()
-  //   return true
-  // }
-
   render() {
     const { type, title, description, classes, keySelectedSection } = this.props
     return (

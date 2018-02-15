@@ -2,6 +2,7 @@ import sections from 'configs/sections'
 import {
   sectionGetNewValue,
   setNewLocationPathname,
+  sectionSetFromPath,
 } from 'helpers/sectionHelper'
 import {
   SECTION_SWITCH_Y,
@@ -22,7 +23,15 @@ const initialState = {
   lastAction: undefined,
 }
 
-const Root = (state = initialState, action) => {
+const initState = () => {
+  return Object.assign(
+    {},
+    initialState,
+    sectionSetFromPath(window.location.pathname, sectionsYLength, initialState.sectionIndexX)
+  )
+}
+
+const Root = (state = initState(), action) => {
   switch (action.type) {
     case SECTION_SWITCH_Y:
       {
@@ -44,7 +53,7 @@ const Root = (state = initialState, action) => {
     case SECTION_SWITCH_X:
       {
         const newSectionIndexX = state.sectionIndexX.slice(0)
-        newSectionIndexX[state.sectionIndexY] = sectionGetNewValue(action.up, newSectionIndexX[state.sectionIndexY], sections[state.sectionIndexY].length, false)
+        newSectionIndexX[state.sectionIndexY] = sectionGetNewValue(action.up, newSectionIndexX[state.sectionIndexY], sections[state.sectionIndexY].components.length, false)
         setNewLocationPathname(state.sectionIndexY, newSectionIndexX[state.sectionIndexY])
         return Object.assign(
           {},
@@ -67,6 +76,7 @@ const Root = (state = initialState, action) => {
           {},
           state,
           {
+            lastMoveDirection: 'reset',
             sectionIndexX: newSectionIndexX,
             lastSectionIndexX: state.lastSectionIndexX,
             lastAction: SECTION_RESET,

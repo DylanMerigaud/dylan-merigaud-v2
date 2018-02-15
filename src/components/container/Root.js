@@ -13,7 +13,6 @@ import { connect } from 'react-redux'
 import {
   sectionSwitchY,
   sectionSwitchX,
-  sectionSetFromPathname,
   sectionReset,
   switchTheme,
 } from 'actions/Root'
@@ -21,6 +20,9 @@ import {
 import sections from 'configs/sections'
 
 import RootSlave from 'components/presentational/RootSlave'
+
+import Reboot from 'material-ui/Reboot'
+
 
 const themeDark = createMuiTheme({
   palette: {
@@ -35,10 +37,6 @@ const themeLight = createMuiTheme({
 })
 
 class Root extends Component {
-  componentWillMount() {
-    sectionSetFromPathname(window.location.pathname)
-  }
-
   constructor(props) {
     super(props)
     const {
@@ -112,6 +110,7 @@ class Root extends Component {
     const sectionXEndOrStart = SelectedSectionIndexX === sectionXMaxLength || SelectedSectionIndexX === 0
     return (
       <MuiThemeProvider theme={theme}>
+        <Reboot />
         <RootSlave sectionXEndOrStart={sectionXEndOrStart} sectionIndexY={sectionIndexY} sectionIndexX={sectionIndexX} sectionXMaxLength={sectionXMaxLength} lastSectionIndexY={lastSectionIndexY} lastSectionIndexX={lastSectionIndexX} lastMoveDirection={lastMoveDirection} keySelectedSection={keySelectedSection} lastAction={lastAction} switchTheme={switchTheme} sectionReset={sectionReset} SelectedSection={SelectedSection} SelectedSectionIndexX={SelectedSectionIndexX} sectionSwitchY={sectionSwitchY} sectionSwitchX={sectionSwitchX} sectionXEnd={sectionXEnd} />
       </MuiThemeProvider>
     )
@@ -136,8 +135,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(sectionSwitchY(up)),
     sectionSwitchX: (up) =>
       dispatch(sectionSwitchX(up)),
-    sectionSetFromPathname: (pathname) =>
-      dispatch(sectionSetFromPathname(pathname)),
     switchTheme: () =>
       dispatch(switchTheme()),
     sectionReset: (onlyX) =>
