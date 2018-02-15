@@ -15,7 +15,7 @@
     "clean-backend": "cd ./backend/ && shx rm -rf ./node_modules",
     "clean-webclient": "cd ./webclient/ && shx rm -rf ./node_modules && shx rm -rf ./build"
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^3.5.1",
     "shx": "^0.2.2"
   }
