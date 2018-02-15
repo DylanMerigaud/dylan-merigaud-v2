@@ -5,6 +5,9 @@ import { withStyles } from 'material-ui/styles'
 
 const styles = theme => ({
   root: {
+    height: 'max-content',
+  },
+  subroot: {
     position: 'absolute',
     display: 'grid',
     gridTemplateRows: '1fr 1fr 1fr',
@@ -29,17 +32,17 @@ class SectionMain extends Component {
   render() {
     const { type, title, description, classes, keySelectedSection } = this.props
     return (
-      <div id={keySelectedSection} className={classes.root}>
-        <Typography variant="title" className={classes.title}>
-          {type}
-        </Typography>
-        <Typography variant="display3">
-          {title}
-        </Typography>
-        <Typography variant="body1" className={classes.body1}>
-          {description}
-        </Typography>
-      </div>
+        <div className={classes.subroot + ' ' + keySelectedSection + ' ' + keySelectedSection + '-root'}>
+          <Typography variant="title" className={classes.title}>
+            {type}
+          </Typography>
+          <Typography variant="display3">
+            {title}
+          </Typography>
+          <Typography variant="body1" className={classes.body1}>
+            {description}
+          </Typography>
+        </div>
     )
   }
 }

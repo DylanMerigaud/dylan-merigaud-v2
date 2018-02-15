@@ -94,39 +94,37 @@ const getSectionAnimation = (lastMoveDirection, isAnError, lastAction, Transitio
   if (lastMoveDirection === 'up')
     returnObject = {
       translateY: [negativeTranslate, 0],
-      duration: duration,
-      elasticity: regularElasticity,
     }
   else if (lastMoveDirection === 'down')
     returnObject = {
       translateY: [positiveTranslate, 0],
-      duration: duration,
-      elasticity: regularElasticity,
     }
   else if (lastMoveDirection === 'left')
     returnObject = {
       translateX: [negativeTranslate, 0],
-      duration: duration,
-      elasticity: isAnError ? errorElasticity : regularElasticity,
     }
   else if (lastMoveDirection === 'right')
     returnObject = {
       translateX: [positiveTranslate, 0],
-      duration: duration,
-      elasticity: isAnError ? errorElasticity : regularElasticity,
     }
   else if (lastMoveDirection === 'reset') {
     return returnObject = {
-      opacity: { value: TransitionStatus === 'onExiting' ? 0 : 1 , elasticity: 0 },
-      translateX: 0,
-      translateY: 0,
+      opacity: { value: TransitionStatus === 'onExiting' ? 0 : 1, elasticity: 0 },
     }
   }
+  returnObject.duration = duration
+  returnObject.elasticity = isAnError ? errorElasticity : regularElasticity
+  if (!returnObject.translateX)
+  returnObject.translateX = 0
+  if (!returnObject.translateY)
+  returnObject.translateY = 0
   if (TransitionStatus === 'onExiting') {
-    returnObject.opacity = { value: 0, elasticity: 0, duration: durationOpacityExit }
+    returnObject.duration = durationOpacityExit
+    returnObject.opacity = { value: 0, elasticity: 0 }
   }
-  else
+  else {
     returnObject.opacity = { value: 1, elasticity: 0 }
+  }
   if (returnObject.translateX) {
     if (TransitionStatus === 'onExiting')
       returnObject.translateX = [returnObject.translateX[1], -returnObject.translateX[0]]
@@ -172,6 +170,13 @@ const sectionSetFromPath = (pathname, sectionsYLength, sectionIndexX) => {
   }
 }
 
+const transitionendDispatcher = (keySelectedSection) => {
+  const el = document.getElementsByClassName(keySelectedSection + '-root')[0]
+  console.log(el)
+  if (el)
+    el.dispatchEvent(new Event('transitionend'))
+}
+
 export {
   mouseWheelHandlerX,
   mouseWheelHandlerY,
@@ -184,4 +189,5 @@ export {
   setNewLocationPathname,
   getSectionAnimation,
   sectionSetFromPath,
+  transitionendDispatcher,
 }

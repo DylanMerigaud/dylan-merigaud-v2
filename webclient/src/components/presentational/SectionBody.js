@@ -51,9 +51,9 @@ class SectionBody extends Component {
   render() {
     const { classes, children, keySelectedSection } = this.props
     return (
-      <div className={classes.root}>
+      <div className={classes.root + ' ' + keySelectedSection + '-root'}>
       <Scrollbars renderThumbVertical={this.renderThumb}>
-        <div className={classes.content} id={keySelectedSection}>
+        <div className={classes.content + ' ' + keySelectedSection}>
           {children}
         </div>
       </Scrollbars>

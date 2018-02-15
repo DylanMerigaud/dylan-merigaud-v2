@@ -13,6 +13,7 @@ import Transition from 'react-transition-group/Transition'
 
 import {
   getSectionAnimation,
+  transitionendDispatcher,
 } from 'helpers/sectionHelper'
 
 import {
@@ -72,12 +73,12 @@ class RootSlave extends Component {
     )
       && lastAction === SECTION_SWITCH_X
     if (isAnError) {
-      if (this.isAnErrorAnime)
-        !this.isAnErrorAnime.completed && this.isAnErrorAnime.seek(this.isAnErrorAnime.duration)
-      this.isAnErrorAnime = anime(
+      anime.remove('.' + this.isAnErrorAnime)
+      this.isAnErrorAnime = keySelectedSection
+      anime(
         Object.assign(
           {
-            targets: '#' + keySelectedSection,
+            targets: '.' + keySelectedSection,
           },
           getSectionAnimation(this.props.lastMoveDirection, isAnError, this.props.lastAction)
         )
@@ -99,26 +100,30 @@ class RootSlave extends Component {
                 node.addEventListener('transitionend', done, false);
               }}
               onEntering={() => {
-                if (this.onEnteringAnime)
-                  !this.onEnteringAnime.completed && this.onEnteringAnime.seek(this.onEnteringAnime.duration)
-                this.onEnteringAnime = anime(
+                // anime.remove('.' + this.onEnteringAnime)
+                transitionendDispatcher(this.onEnteringAnime)
+                this.onEnteringAnime = keySelectedSection
+                anime(
                   Object.assign(
                     {
-                      targets: '#' + keySelectedSection,
+                      targets: '.' + keySelectedSection,
+                      complete: (anim) => transitionendDispatcher(keySelectedSection)
                     },
                     getSectionAnimation(this.props.lastMoveDirection, false, this.props.lastAction, 'onEntering')
                   )
                 )
               }}
               onExiting={() => {
-                if (this.onExitingAnime)
-                  !this.onExitingAnime.completed && this.onExitingAnime.seek(this.onExitingAnime.duration)
-                if (this.isAnErrorAnime)
-                  !this.isAnErrorAnime.completed && this.isAnErrorAnime.seek(this.isAnErrorAnime.duration)
-                this.onExitingAnime = anime(
+                //anime.remove('.' + this.isAnErrorAnime)
+                //anime.remove('.' + this.onExitingAnime)
+                transitionendDispatcher(this.isAnErrorAnime)
+                transitionendDispatcher(this.onExitingAnime)
+                this.onExitingAnime = keySelectedSection
+                anime(
                   Object.assign(
                     {
-                      targets: '#' + keySelectedSection,
+                      targets: '.' + keySelectedSection,
+                      complete: (anim) => transitionendDispatcher(keySelectedSection)
                     },
                     getSectionAnimation(this.props.lastMoveDirection, false, this.props.lastAction, 'onExiting')
                   )
