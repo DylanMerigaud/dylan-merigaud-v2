@@ -1,25 +1,22 @@
 {
   "name": "dylan-merigaud-v2",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "animejs": "^2.2.0",
-    "material-ui": "^1.0.0-beta.32",
-    "react": "^16.2.0",
-    "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "^16.2.0",
-    "react-icons": "^2.2.7",
-    "react-redux": "^5.0.6",
-    "react-scripts": "1.1.0",
-    "react-transition-group": "^2.2.1",
-    "redux": "^3.7.2"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "start": "cd ./backend/ && npm start",
+    "postinstall": "concurrently \"npm run install-backend\" \"npm run install-webclient\"",
+    "install-backend": "cd ./backend/ && npm install",
+    "install-webclient": "cd ./webclient/ && npm install",
+    "dev": "concurrently --kill-others \"cd ./webclient && npm run dev\" \"cd ./backend && npm run dev\"",
+    "build": "cd ./webclient && npm run build",
     "heroku-postbuild": "npm run build",
-    "heroku-test": "heroku local web"
+    "heroku-test": "heroku local web",
+    "clean": "concurrently \"npm run clean-webclient\" \"npm run clean-backend\" &&  shx rm -rf ./node_modules",
+    "clean-backend": "cd ./backend/ && shx rm -rf ./node_modules",
+    "clean-webclient": "cd ./webclient/ && shx rm -rf ./node_modules && shx rm -rf ./build"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "shx": "^0.2.2"
   }
 }
